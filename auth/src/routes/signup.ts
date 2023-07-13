@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
 import { Request, Response } from "express";
+import { RequestValidationError } from "../errors/request-validation";
+import { DatabaseConnectionError } from "../errors/database-connection";
 
 const router = Router();
 
@@ -11,7 +13,7 @@ router.post("/api/users/signup", [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        throw new Error('Invalid email or password');
+        throw new RequestValidationError(errors.array());
     }
 
     res.json({ message: "Signup" });
