@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import { RequestValidationError } from "../errors/request-validation";
 import { User } from "../models/User";
 import { BadRequestError } from "../errors/bad-request";
+import { Jwt, sign } from "jsonwebtoken";
 
 const router = Router();
 
@@ -26,6 +27,15 @@ router.post("/api/users/signup", [
 
     const newUser = User.build({ email, password });
     await newUser.save();
+    const userJwt = sign({
+        id: newUser.id,
+        email: newUser.email
+    }, 'asdf');
+
+    req.session = {
+        jwt: userJwt
+    };
+
     res.status(201).send(newUser);
 
 });

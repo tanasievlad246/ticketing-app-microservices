@@ -1,5 +1,6 @@
 import express, { Express, json } from "express";
 import 'express-async-errors';
+import cookieSession from "cookie-session";
 import mongoose from "mongoose";
 
 import { currentUserRouter } from "./routes/currentuser";
@@ -12,8 +13,13 @@ import { requestsLogger } from "./middleware/requests-logger";
 import { NotFoundError } from "./errors/not-found";
 
 const app: Express = express();
+app.set("trust proxy", true); // Trust traffic from ingress-nginx
 app.use(json());
 app.use(requestsLogger);
+app.use(cookieSession({
+    signed: false, // Disables encryption
+    secure: true, // Only allow HTTPS connections
+}));
 
 app.use(currentUserRouter);
 app.use(signInUserRouter);
