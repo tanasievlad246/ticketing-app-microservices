@@ -1,4 +1,4 @@
-import { compare, hash, genSalt } from 'bcrypt';
+import { compare, hash, genSalt, compareSync } from 'bcrypt';
 
 export class Password {
     static async hash(password: string): Promise<string> {
@@ -8,8 +8,20 @@ export class Password {
     }
 
     static async compare(storedPassword: string, suppliedPassword: string): Promise<boolean> {
-        const [salt, hashed] = storedPassword.split('.');
-        const hashedSupplied = await hash(suppliedPassword, salt);
-        return await compare(hashed, hashedSupplied); 
+        const [salt, hashed] = Password.splitStringAtFirstDot(storedPassword);
+        return await compare(suppliedPassword, hashed);
+    }
+
+    private static splitStringAtFirstDot(inputString: string) {
+        const dotIndex = inputString.indexOf('.');
+        
+        if (dotIndex === -1) {
+          return [inputString];
+        } else {
+          const firstPart = inputString.substring(0, dotIndex);
+          const secondPart = inputString.substring(dotIndex + 1);
+          
+          return [firstPart, secondPart];
+        }
     }
 }
