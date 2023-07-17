@@ -17,7 +17,7 @@ app.use(json());
 app.use(requestsLogger);
 app.use(cookieSession({
     signed: false, // Disables encryption
-    secure: true, // Only allow HTTPS connections
+    secure: process.env.NODE_ENV !== "test", // Cookies only over HTTPS 
 }));
 
 app.use(currentUserRouter);
