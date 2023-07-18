@@ -7,7 +7,7 @@ export const LandingPage = ({ currentUser }) => {
 // This function will be executed on the server
 LandingPage.getInitialProps = async (context) => {
     try {
-        const response = await axios.get('/api/users/currentuser');
+        const response = await axios.get('http://ingess-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser');
         return response.data;
     } catch (error) {
         console.log(error);
