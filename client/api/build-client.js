@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+/**
+ * @param {Object} req The request object from NextJS context
+ * @returns {Object} An axios instance
+ */
 export default ({ req }) => {
     if (typeof window === 'undefined') {
         return axios.create({
