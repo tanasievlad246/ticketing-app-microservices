@@ -13,14 +13,14 @@ spec:
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:
-              service: 
+              service:
                 name: auth-srv
-                port: 
+                port:
                   number: 3000
           - path: '/?(.*)'
             pathType: Prefix
             backend:
-              service: 
+              service:
                 name: client-srv
-                port: 
+                port:
                   number: 3000
