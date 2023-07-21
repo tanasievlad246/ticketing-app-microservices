@@ -7,3 +7,5 @@
 
 # Services:
  - Auth: The authentication and authorization service for the users
+ - client: The web interface for our application
+ - common: The common code package for all our microservices which is under @ticketingapporg/common
