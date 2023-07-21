@@ -7,9 +7,7 @@ import { signInUserRouter } from "./routes/signin";
 import { signOutUserRouter } from "./routes/signout";
 import { signUpUserRouter } from "./routes/signup";
 
-import { errorHandler } from "./middleware/error-handling";
-import { requestsLogger } from "./middleware/requests-logger";
-import { NotFoundError } from "./errors/not-found";
+import { errorHandler, requestsLogger, NotFoundError } from "@ticketingapporg/common";
 
 const app: Express = express();
 app.set("trust proxy", true); // Trust traffic from ingress-nginx

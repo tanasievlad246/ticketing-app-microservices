@@ -1,9 +1,9 @@
 import { Request, Response, Router } from "express";
 import { body } from "express-validator";
-import { validateRequest } from "../middleware/validate-request";
+import { validateRequest } from "@ticketingapporg/common";
 import { User } from "../models/User";
 import { Password } from "../utils/Password";
-import { BadRequestError } from "../errors/bad-request";
+import { BadRequestError } from "@ticketingapporg/common";
 import { sign } from "jsonwebtoken";
 
 const router = Router();

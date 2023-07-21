@@ -2,9 +2,8 @@ import { Router } from "express";
 import { body } from "express-validator";
 import { Request, Response } from "express";
 import { User } from "../models/User";
-import { BadRequestError } from "../errors/bad-request";
+import { BadRequestError, validateRequest } from "@ticketingapporg/common";
 import { sign } from "jsonwebtoken";
-import { validateRequest } from "../middleware/validate-request";
 
 const router = Router();
 
