@@ -4,6 +4,7 @@
 # Usage:
  - Install `skaffold`
  - Install and enable [Ingress-Nginx](https://kubernetes.github.io/ingress-nginx/deploy/)
+ - Create secret `k create secret generic jwt-secret --from-literal=JWT_KEY=<key-value>`
  - Run `skaffold dev` in the root folder in your prefered context (best minikube)
 
 # Services:
