@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
 import request from 'supertest';
+import { sign } from 'jsonwebtoken';
 import { app } from '../app';
 
+// modifying global to declare global function
 declare global {
-  function signin(): Promise<string[]>;
+  function signin(): string[];
 }
 
 beforeAll(async () => {
@@ -32,17 +34,19 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signin = async (): Promise<string[]> => {
-  const email = 'test@test.com';
-  const password = 'password';
+global.signin = (): string[] => {
+  const payload = {
+    email: 'test@email.com',
+    id: 'akldjasdi123'
+  };
 
-  const response = await request(app)
-    .post('/api/users/signup')
-    .send({
-      email, password
-    })
-    .expect(201);
+  const token = sign(payload, process.env.JWT_KEY!);
 
-  const cookie = response.get('Set-Cookie');
-  return cookie;
+  const session = { jwt: token };
+
+  const sessionJSON = JSON.stringify(session);
+
+  const base64 = Buffer.from(sessionJSON).toString('base64');
+
+  return [`express:sess=${base64}`];
 }

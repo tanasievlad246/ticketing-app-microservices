@@ -3,6 +3,7 @@
 
 # Usage:
  - Install `skaffold`
+ - Install and enable [Ingress-Nginx](https://kubernetes.github.io/ingress-nginx/deploy/)
  - Run `skaffold dev` in the root folder in your prefered context (best minikube)
 
 # Services:
