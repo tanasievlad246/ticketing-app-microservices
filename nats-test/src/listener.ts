@@ -5,14 +5,18 @@ import { TicketCreatedListener } from '@ticketingapporg/common';
 const clientId = randomBytes(4).toString('hex');
 
 // stan is the client
-const stan = nats.connect('ticketing', clientId, {
+const stan = nats.connect('dragon', clientId, {
     url: 'http://localhost:4222',
 });
 
 stan.on('connect', () => {
     console.log('Listener connected to NATS');
-
-    new TicketCreatedListener(stan).listen();
+    const subscribe = stan.subscribe('livevox:call');
+    subscribe.on('message', (msg) => {
+        console.log(
+            `Received event #${msg.getSequence()}, with data: ${msg.getData()}`
+        )
+    });
 });
 
 process.on('SIGINT', () => stan.close());
