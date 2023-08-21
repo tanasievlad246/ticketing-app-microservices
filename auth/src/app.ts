@@ -7,12 +7,11 @@ import { signInUserRouter } from "./routes/signin";
 import { signOutUserRouter } from "./routes/signout";
 import { signUpUserRouter } from "./routes/signup";
 
-import { errorHandler, requestsLogger, NotFoundError } from "@ticketingapporg/common";
+import { errorHandler, NotFoundError } from "@ticketingapporg/common";
 
 const app: Express = express();
 app.set("trust proxy", true); // Trust traffic from ingress-nginx
 app.use(json());
-app.use(requestsLogger);
 app.use(cookieSession({
     signed: false, // Disables encryption
     secure: process.env.NODE_ENV !== "test", // Cookies only over HTTPS
