@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: vlad246/
+          image: vlad246/orders
           env:
             - name: JWT_KEY
               valueFrom:
@@ -35,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: -srv
+  name: orders-srv
 spec:
   selector:
     app: orders
