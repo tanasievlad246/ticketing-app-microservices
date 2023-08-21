@@ -1,9 +1,9 @@
 import request from 'supertest';
 import { app } from '../../app';
 
-const createTicket = async () => {
+const createTicket = () => {
     const cookie = global.signin();
-    return await request(app)
+    return request(app)
         .post('/api/tickets')
         .set('Cookie', cookie)
         .send({
