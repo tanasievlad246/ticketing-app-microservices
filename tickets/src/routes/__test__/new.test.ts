@@ -1,6 +1,5 @@
 import request from 'supertest';
 import { app } from '../../app';
-import { response } from 'express';
 import { Ticket } from '../../models/Ticket';
 
 it('has a route handler listening to /api/tickets for post requests', async () => {
