@@ -1,15 +1,21 @@
 import mongoose from 'mongoose';
+import { OrderStatus } from '@ticketingapporg/common';
+import { TicketDoc } from './Ticket';
+
+export { OrderStatus };
 
 interface OrderAttrs {
-  title: string;
-  price: number;
+  status: OrderStatus;
+  ticket: TicketDoc;
   userId: string;
+  expiresAt: Date;
 }
 
 interface OrderDoc extends mongoose.Document {
-  title: string;
-  price: number;
+  status: OrderStatus;
+  ticket: TicketDoc;
   userId: string;
+  expiresAt: Date;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -18,18 +24,25 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
 
 const orderSchema = new mongoose.Schema(
   {
-    title: {
+    status: {
       type: String,
       required: true,
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.Created,
     },
-    price: {
-      type: Number,
+    ticket: {
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: 'Ticket',
     },
     userId: {
       type: String,
       required: true,
     },
+    expiresAt: {
+      type: mongoose.Schema.Types.Date,
+      required: true,
+    }
   },
   {
     toJSON: {
