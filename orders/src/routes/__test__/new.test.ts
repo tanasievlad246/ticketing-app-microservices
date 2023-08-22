@@ -65,3 +65,5 @@ it('reserves a ticket', async () => {
         })
         .expect(201);
 });
+
+it.todo('reserved a ticket with an event published');
