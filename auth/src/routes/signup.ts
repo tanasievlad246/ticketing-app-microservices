@@ -18,7 +18,7 @@ router.post("/api/users/signup", [
 
     if (existingUser) {
         throw new BadRequestError("Email already in use");
-    } 
+    }
 
     const newUser = User.build({ email, password });
     await newUser.save();
